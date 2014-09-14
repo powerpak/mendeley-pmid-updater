@@ -106,17 +106,17 @@ class MendeleyDatabase
       next unless ext_id
       if ID_COLS.include? id_type
         if @update_nils_only
-          # Don't set things if they are nil
-          @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ?", [ext_id, now, document_id])
-        else
+          # Don't set things if they are not null
           @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ? AND #{id_type} is null", [ext_id, now, document_id])
+        else
+          @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ?", [ext_id, now, document_id])
         end
       else
         note = nil
         note_tag = "{:#{id_type.upcase}:#{ext_id}}"
         @db.execute("SELECT note FROM Documents WHERE id = ? LIMIT 1", [document_id]) {|row| note = row.first }
         if note =~ /\{:#{id_type.upcase}:([^}]*)\}/
-          note.gsub!(/\{:#{id_type.upcase}:([^}]*)\}/, note_tag) #unless @update_nils_only
+          note.gsub!(/\{:#{id_type.upcase}:([^}]*)\}/, note_tag) unless @update_nils_only
         elsif note =~ /<m:note>/
           note.gsub!(/<m:note>/, "<m:note>#{note_tag} ")
         elsif note && note.strip.length > 0
