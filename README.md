@@ -11,7 +11,7 @@ The [PMC ID Converter API](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-ap
 
 ## Fair Warning
 
-Although this tool is fairly paranoid and backs up your Mendeley database before touching it--every time it runs, as a separate file into `backups/`, *even* on dry runs when no data will be written--it does operate outside of Mendeley's public APIs for accessing your data.  It *could* very well blow away your database or overwrite it in ways that you do not like.  At some point I may rewrite this to use [Mendeley's API](http://dev.mendeley.com/slate/) so that it works on your online account's data, but that would require me to set up OAuth2 and a whole lot of Not Fun things, so no go for now.
+**Read this carefully.** Although this tool is fairly paranoid and backs up your Mendeley database before touching it—every time it runs, as a separate file into `backups/`, *even* on dry runs when no data will be written—it does operate outside of Mendeley's public APIs for accessing your data.  It *could* very well blow away your database or overwrite it in ways that you do not like.  At some point I may rewrite this to use [Mendeley's API](http://dev.mendeley.com/slate/) so that it works on your online account's data, but that would require me to set up OAuth2 and a whole lot of Not Fun things, so no go for now.
 
 If losing data concerns you, and it should, backup your Mendeley library before using this.  You can do this by running Mendeley and looking in the `Help` menu for `Create Backup...`
 
