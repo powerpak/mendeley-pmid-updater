@@ -24,7 +24,11 @@ When you make a backup as previously described, Mendeley hands you a ZIP archive
 
 ## Requirements
 
-Linux and Mac computers are supported.  You'll need Ruby, RubyGems, and some basic gems, which will be installed with Bundler.
+Linux and Mac computers are supported.  You'll need Ruby ≥1.9.2, RubyGems, and some basic gems, which will be installed with Bundler.
+
+On most Macs, you'll only need to run `sudo gem install bundler` because you already have Ruby 2.0.0 and RubyGems, as of Mavericks (10.9).
+
+On Linux, I defer either to your package manager or your raging desire to build from source.
 
 ## Usage
 
