@@ -17,7 +17,7 @@ If losing data concerns you, and it should, backup your Mendeley library before 
 
 The script operates locally on your Mendeley database, which ends in `.sqlite` and is named after your Mendeley username, and will be found in one of the following folders:
 
-* Mac OS X: /Users/<Your username>/Library/Application Support/Mendeley Desktop/
+* Mac OS X: ~/Library/Application Support/Mendeley Desktop/
 * Linux: ~/.local/share/data/Mendeley Ltd./Mendeley Desktop/
 
 When you make a backup as previously described, Mendeley hands you a ZIP archive of this folder, which will also include all the files for your imported articles.  This script simply copies the aforementioned `.sqlite` file into a `backups` folder before it operates on it.
