@@ -41,6 +41,10 @@ class MendeleyDatabase
     @verbose = true
     @update_nils_only = true
   end
+  
+  def dry_run
+    fix_article_ids true
+  end
 
   def fix_article_ids(dry_run=false)
     match_count = 0
