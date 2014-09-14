@@ -24,7 +24,7 @@ When you make a backup as previously described, Mendeley hands you a ZIP archive
 
 ## Requirements
 
-Linux and Mac computers are supported.  You'll need Ruby and some basic gems, which will be installed with Bundler.
+Linux and Mac computers are supported.  You'll need Ruby, RubyGems, and some basic gems, which will be installed with Bundler.
 
 ## Usage
 
@@ -32,7 +32,7 @@ First, clone this repository to a directory and `cd` into it.  Then:
 
     $ bundle install
 
-to install the required gems.  Of the gems needed, Nokogiri is probably the most troublesome to install, so you may need to refer to [its installation instructions](http://nokogiri.org/tutorials/installing_nokogiri.html) if it hands you an error about required libraries.  Then:
+to install the required gems.  If it complains that you can't write to the gems directory, `sudo bundle install` instead.  Of the gems needed, Nokogiri is probably the most troublesome to install, so you may need to refer to [its installation instructions](http://nokogiri.org/tutorials/installing_nokogiri.html) if it hands you an error about required libraries.  Then:
 
     $ rake
 
