@@ -107,7 +107,8 @@ class MendeleyDatabase
       if ID_COLS.include? id_type
         if @update_nils_only
           # Don't set things if they are not null
-          @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ? AND #{id_type} is null", [ext_id, now, document_id])
+          @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ? AND #{id_type} is null",
+              [ext_id, now, document_id])
         else
           @db.execute("UPDATE Documents SET #{id_type} = ?, modified = ? WHERE id = ?", [ext_id, now, document_id])
         end
