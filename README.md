@@ -7,6 +7,8 @@ This little script attempts to fix that.  It scans your Mendeley database for jo
 1. If the PMID is available, it is used to retrieve the PMCID and DOI.
 2. If there is no PMID, but the DOI is available, it is used to retrieve the PMCID and PMID.
 
+Whatever can be retrieved that is not present in your database is updated accordingly.
+
 The [PMC ID Converter](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/) and [EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/) APIs are used to try to match your IDs, in that respective order.
 
 ## Fair Warning
@@ -46,7 +48,7 @@ will perform a dry-run of the matching procedure.  If everything goes well, you 
 
     $ rake update_ids
 
-will start saving these IDs to your Mendeley database.
+will start saving these IDs to your Mendeley database.  **Technical Note:** because Mendeley has no dedicated PMCID field, the PMCID is actually saved as a CSL variable into the Notes field [as specified here](http://support.mendeley.com/customer/portal/articles/723677-adding-new-variables-to-my-citation-style).
 
 These tasks will not run unless Mendeley is shut down, and every time it runs, you will first see a new `.sqlite` file backed up to the `backups/` folder in this repo, just in case something goes horribly wrong.  In the rare event that this occurs, remove the numerical prefix and copy it back to the appropriate folder listed in the [Fair Warning](#fair-warning) section of this README.
 
