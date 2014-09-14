@@ -4,7 +4,7 @@ task :default => :dry_run
 
 desc "Ensures Mendeley is shut down before messing with the database"
 task :shutdown_mendeley do |t|
-  if `ps aux | grep Mendeley | grep -v grep` != ''
+  if `ps aux | grep -i mendeley | grep -v grep` != ''
     fail "Please close Mendeley before running this script."
   end
 end
