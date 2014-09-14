@@ -7,7 +7,7 @@ This little script attempts to fix that.  It scans your Mendeley database for jo
 1. If the PMID is available, it is used to retrieve the PMCID and DOI.
 2. If there is no PMID, but the DOI is available, it is used to retrieve the PMCID and PMID.
 
-The [PMC ID Converter API](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/) and [EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/) are used to try to match your IDs, in that respective order.
+The [PMC ID Converter](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/) and [EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/) APIs are used to try to match your IDs, in that respective order.
 
 ## Fair Warning
 
