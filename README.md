@@ -30,6 +30,8 @@ On most Macs, you'll only need to run `sudo gem install bundler` because you alr
 
 On Linux, I defer either to your package manager or your raging desire to build from source.
 
+In both cases, [rbenv](https://github.com/sstephenson/rbenv) might help if your system Ruby is out of date.
+
 ## Usage
 
 First, clone this repository to a directory and `cd` into it.  Then:
