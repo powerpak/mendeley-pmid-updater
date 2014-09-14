@@ -40,7 +40,7 @@ First, clone this repository to a directory and `cd` into it.  Then:
 
     $ bundle install
 
-to install the required gems.  If it complains that you can't write to the gems directory, `sudo bundle install` instead.  Of the gems needed, Nokogiri is probably the most troublesome to install, so you may need to refer to [its installation instructions](http://nokogiri.org/tutorials/installing_nokogiri.html) if it hands you an error about required libraries.  Then:
+to install the required gems.  Bundler may prompt you for your password if it needs to write to a system directory.  Of the gems needed, Nokogiri is probably the most finicky to install, so you may need to refer to [its installation instructions](http://nokogiri.org/tutorials/installing_nokogiri.html) if it cannot compile a certain library—but usually it can do it without intervention.  Then:
 
     $ rake
 
