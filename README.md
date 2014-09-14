@@ -46,7 +46,7 @@ These tasks will not run unless Mendeley is shut down, and every time it runs, y
 
 The next time you start Mendeley, you will see your new DOIs, PMIDs, and PMCIDs, and it will automatically sync them to your online account, so your other computers will receive these IDs too.
 
-If you want to use a citation that prints these IDs after your references in your bibliography, check out [this CSL](http://csl.mendeley.com/styles/100600971/national-library-of-medicine-grant-proposals-7).  You can install it for Mendeley Desktop by going to `View` > `Citation` Style > `Journal Abbreviations` ... changing to the `Get More Styles` tab, and pasting the URL at the bottom.
+If you want to use a citation that prints these IDs after your references in your bibliography, check out [this CSL](http://csl.mendeley.com/styles/100600971/national-library-of-medicine-grant-proposals-7).  You can install it for Mendeley Desktop by going to `View` > `Citation Style` > `Journal Abbreviations` ... changing to the `Get More Styles` tab, and pasting the URL at the bottom.
 
 ## License
 
