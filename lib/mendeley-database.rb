@@ -115,8 +115,8 @@ class MendeleyDatabase
         note = nil
         note_tag = "{:#{id_type.upcase}:#{ext_id}}"
         @db.execute("SELECT note FROM Documents WHERE id = ? LIMIT 1", [document_id]) {|row| note = row.first }
-        if note =~ /\{:#{id_type.upcase}: (\w+)\}/
-          note.gsub!(/\{:#{id_type.upcase}: (\w+)\}/, note_tag) unless @update_nils_only
+        if note =~ /\{:#{id_type.upcase}:([^}]*)\}/
+          note.gsub!(/\{:#{id_type.upcase}:([^}]*)\}/, note_tag) #unless @update_nils_only
         elsif note =~ /<m:note>/
           note.gsub!(/<m:note>/, "<m:note>#{note_tag} ")
         elsif note && note.strip.length > 0
