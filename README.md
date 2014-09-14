@@ -48,7 +48,7 @@ will perform a dry-run of the matching procedure.  If everything goes well, you 
 
     $ rake update_ids
 
-will start saving these IDs to your Mendeley database.  **Technical Note:** because Mendeley has no dedicated PMCID field, the PMCID is actually saved as a CSL variable into the Notes field [as specified here](http://support.mendeley.com/customer/portal/articles/723677-adding-new-variables-to-my-citation-style).
+will start saving these IDs to your Mendeley database.  **Technical Note:** because Mendeley has no dedicated PMCID field, the PMCID is mapped to its [CSL variable](http://citationstyles.org/downloads/specification.html#standard-variables) by jamming it into the Notes field [as specified here](http://support.mendeley.com/customer/portal/articles/723677-adding-new-variables-to-my-citation-style).  From there, it can be [parsed out by citeproc-js](http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#supplementary-fields) to be included in your bibliography.
 
 These tasks will not run unless Mendeley is shut down, and every time it runs, you will first see a new `.sqlite` file backed up to the `backups/` folder in this repo, just in case something goes horribly wrong.  In the rare event that this occurs, remove the numerical prefix and copy it back to the appropriate folder listed in the [Fair Warning](#fair-warning) section of this README.
 
