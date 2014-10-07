@@ -53,9 +53,9 @@ class PMCIDConverter
             :doi => first_result["doi"]
           }
         end
-       rescue OpenURI::HTTPError => ex
-         puts "****URI MISSING", uri, "\n";
-       end
+      rescue OpenURI::HTTPError => ex
+        raise PMCIDConverterError.new("PMC ID Converter API could not open #{uri}", nil)
+      end
     end
     
     def pubmed_search(id, id_type)

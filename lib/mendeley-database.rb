@@ -76,7 +76,7 @@ class MendeleyDatabase
         begin
           match = PMCIDConverter.convert(id, id_type)
         rescue PMCIDConverterError => e
-          puts e.message if @verbose
+          $stderr.puts e.message if @verbose
         end
         break if match
       end
@@ -84,11 +84,11 @@ class MendeleyDatabase
       if @verbose
         short_title = "#{title}~"[0..100].gsub(/\s\w+\s*$/, '...').gsub(/~$/, '')
         if match then
-          puts "Matched \"#{short_title}\""
+          $stderr.puts "Matched \"#{short_title}\""
           match.each do |id_type, id|
-            puts "  |--> #{id_type.to_s.upcase}: #{id || '?'}"
+            $stderr.puts "  |--> #{id_type.to_s.upcase}: #{id || '?'}"
           end
-        else puts "Could not match \"#{short_title}\""; end
+        else $stderr.puts "Could not match \"#{short_title}\""; end
       end
       
       update_article(id, match) if match && !dry_run
@@ -96,7 +96,7 @@ class MendeleyDatabase
       match_count += 1 if match
     end
     
-    puts "Matched #{match_count} of #{row_count} documents."
+    $stderr.puts "Matched #{match_count} of #{row_count} documents."
   end
   
   def update_article(document_id, match)
