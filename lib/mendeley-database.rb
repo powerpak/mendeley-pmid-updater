@@ -7,6 +7,7 @@ require_relative "pmc-id-converter"
 class MendeleyDatabase
   
   PAPERS_DOI_URL_FORMAT = /^papers2:\/\/[^\/]+\/doi\/(.*)/
+  ID_COLS = ["doi", "pmid"]
   
   class << self
     def location
@@ -32,8 +33,6 @@ class MendeleyDatabase
   attr_accessor :verbose
   attr_accessor :update_nils_only
   
-  ID_COLS = ["doi", "pmid"]
-  
   def initialize(db_file=nil)
     db_file ||= self.class.location
     # Opens the database
@@ -43,7 +42,13 @@ class MendeleyDatabase
   end
   
   def dry_run
+    fix_author_names true
     fix_article_ids true
+  end
+  
+  def fix!
+    fix_author_names
+    fix_article_ids
   end
 
   def fix_article_ids(dry_run=false)
@@ -91,7 +96,7 @@ class MendeleyDatabase
         else $stderr.puts "Could not match \"#{short_title}\""; end
       end
       
-      update_article(id, match) if match && !dry_run
+      update_article!(id, match) if match && !dry_run
       
       match_count += 1 if match
     end
@@ -99,7 +104,7 @@ class MendeleyDatabase
     $stderr.puts "Matched #{match_count} of #{row_count} documents."
   end
   
-  def update_article(document_id, match)
+  def update_article!(document_id, match)
     match.each do |id_type, ext_id|
       id_type = id_type.to_s
       now = Time.now.to_i
@@ -129,6 +134,27 @@ class MendeleyDatabase
         @db.execute("UPDATE Documents SET note = ? WHERE id = ?", [note, document_id])
       end
     end
+  end
+  
+  def fix_author_names(dry_run=false)
+    #@db.execute("PRAGMA case_sensitive_like=ON;")
+    @db.execute("SELECT id, firstNames, lastName, documentId FROM DocumentContributors 
+                 WHERE ' ' || firstNames || ' ' LIKE '% a %' OR ' ' || firstNames LIKE '% a.%'") do |row|
+      id, first_names, last_name, document_id = row
+      first_names_fixed = first_names.gsub(/\ba\b/, 'A')
+      if true #first_names != first_names_fixed
+        if @verbose
+          $stderr.puts "Fix author \"#{first_names} #{last_name}\" --> \"#{first_names_fixed} #{last_name}\""
+        end
+        update_author!(id, first_names_fixed, document_id) unless dry_run
+      end
+    end
+  end
+  
+  def update_author!(contributor_id, first_name, document_id)
+    now = Time.now.to_i
+    @db.execute("UPDATE DocumentContributors SET firstNames = ? WHERE id = ?", [first_name, contributor_id])
+    @db.execute("UPDATE Documents SET modified = ? WHERE id = ?", [now, document_id])
   end
   
 end
