@@ -34,23 +34,27 @@ class PMCIDConverter
       uri = URI(PMC_API_URL)
       ar = URI.decode_www_form(uri.query) << ["ids", id]
       uri.query = URI.encode_www_form(ar)
-      open(uri) do |json|
-        response = JSON.parse json.read
-        unless response["status"] == "ok"
-          raise PMCIDConverterError.new("PMC ID Converter API returned an error: #{response['message']}", response)
+      begin
+        open(uri) do |json|
+          response = JSON.parse json.read
+          unless response["status"] == "ok"
+            raise PMCIDConverterError.new("PMC ID Converter API returned an error: #{response['message']}", response)
+          end
+          unless response["records"].length > 0
+            raise PMCIDConverterError.new("PMC ID Converter API returned no results", response)
+          end
+          first_result = response["records"].first
+          if first_result["status"] == "error"
+            raise PMCIDConverterError.new("PMC ID Converter API could not find this ID: #{id}", response)
+          end
+          {
+            :pmcid => first_result["pmcid"],
+            :pmid => first_result["pmid"],
+            :doi => first_result["doi"]
+          }
         end
-        unless response["records"].length > 0
-          raise PMCIDConverterError.new("PMC ID Converter API returned no results", response)
-        end
-        first_result = response["records"].first
-        if first_result["status"] == "error"
-          raise PMCIDConverterError.new("PMC ID Converter API could not find this ID: #{id}", response)
-        end
-        {
-          :pmcid => first_result["pmcid"],
-          :pmid => first_result["pmid"],
-          :doi => first_result["doi"]
-        }
+      rescue OpenURI::HTTPError => ex
+        raise PMCIDConverterError.new("PMC ID Converter API could not open #{uri}", nil)
       end
     end
     

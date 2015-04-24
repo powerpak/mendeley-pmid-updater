@@ -28,5 +28,5 @@ task :update_ids, [:quietly, :overwrite_fields] => :backup do |t, args|
   md = MendeleyDatabase.new
   md.verbose = false if !args.quietly.nil?
   md.update_nils_only = false if !args.update_all.nil?
-  md.fix_article_ids
+  md.fix!
 end

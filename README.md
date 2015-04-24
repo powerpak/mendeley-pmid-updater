@@ -9,6 +9,8 @@ This little script attempts to fix that.  It scans your Mendeley database for jo
 
 Whatever can be retrieved that is not present in your database is updated accordingly.
 
+**Bonus Feature**: Mendeley has an annoying bug where if an author's first name(s) are fetched and they include the initial "A", it gets saved as a lower case "a", producing citations like "Smith J a" instead of the expected "Smith JA". This script fixes those names as well.
+
 The [PMC ID Converter](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/) and [EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/) APIs are used to try to match your IDs, in that respective order.
 
 ## Fair Warning
