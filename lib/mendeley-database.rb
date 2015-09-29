@@ -1,6 +1,7 @@
 require "sqlite3"
 require "os"
 require "fileutils"
+require "securerandom"
 
 require_relative "pmc-id-converter"
 
@@ -56,7 +57,7 @@ class MendeleyDatabase
     row_count = 0
     
     # For every Document that is a JournalArticle...
-    @db.execute("SELECT id, title, year, note, doi, pmid FROM Documents WHERE type='JournalArticle'") do |row|
+    @db.execute("SELECT id, title, year, note, doi, pmid FROM Documents WHERE type='JournalArticle' ORDER BY id DESC") do |row|
       id, title, year, note, doi, pmid = row
       urls = []
       row_count += 1
@@ -119,19 +120,28 @@ class MendeleyDatabase
         end
       else
         note = nil
+        note_id = nil
         note_tag = "{:#{id_type.upcase}:#{ext_id}}"
-        @db.execute("SELECT note FROM Documents WHERE id = ? LIMIT 1", [document_id]) {|row| note = row.first }
-        if note =~ /\{:#{id_type.upcase}:([^}]*)\}/
+        @db.execute("SELECT id, text FROM DocumentNotes WHERE documentId = ? LIMIT 1", [document_id]) do |row| 
+          note_id = row[0]
+          note = row[1]
+        end
+        if note_id && note =~ /\{:#{id_type.upcase}:([^}]*)\}/
           # There is already a CSL variable for this id_type in the note field
           note.gsub!(/\{:#{id_type.upcase}:([^}]*)\}/, note_tag) unless @update_nils_only
-        elsif note =~ /<m:note>/
+        elsif note_id && note =~ /<m:note>/
           note.gsub!(/<m:note>/, "<m:note>#{note_tag} ")
-        elsif note && note.strip.length > 0
+        elsif note_id && note && note.strip.length > 0
           note = "#{note_tag} #{note}"
         else
-          note = "<m:note>#{note_tag}</m:note>"
+          note = note_tag
         end
-        @db.execute("UPDATE Documents SET note = ? WHERE id = ?", [note, document_id])
+        if note_id
+          @db.execute("UPDATE DocumentNotes SET text = ? WHERE id = ?", [note, note_id])
+        else
+          values = [SecureRandom.uuid, note, document_id, 0, note]
+          @db.execute("INSERT INTO DocumentNotes (uuid, text, documentId, unlinked, baseNote) VALUES (?,?,?,?,?)", values)
+        end
       end
     end
   end
