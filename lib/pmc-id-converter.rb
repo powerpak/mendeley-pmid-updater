@@ -6,7 +6,7 @@ require "andand"
 
 class PMCIDConverter
   
-  PMC_API_URL = 'http://www.pubmedcentral.nih.gov/utils/idconv/v1.0/?format=json'
+  PMC_API_URL = 'https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?format=json'
   PUBMED_URL = 'http://www.ncbi.nlm.nih.gov/pubmed/?report=xml&format=text'
   EUTILS_SEARCH = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&usehistory=n'
   EUTILS_FETCH = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml'
