@@ -21,6 +21,14 @@ task :dry_run => :backup do |t, args|
   md.dry_run
 end
 
+desc "Updates author names"
+# The `quietly` param will suppress progress messages.
+task :fix_authors, [:quietly] => :backup do |t, args|
+  md = MendeleyDatabase.new
+  md.verbose = false if !args.quietly.nil?
+  md.fix_author_names
+end
+
 desc "Fills in missing PMIDs, PMCIDs, and DOIs in the Mendeley database."
 # The `quietly` param will suppress progress messages.
 # The `overwrite_fields` will allow the script to update non-empty fields (by default it only touches empty fields.)

@@ -6,10 +6,10 @@ require "andand"
 
 class PMCIDConverter
   
-  PMC_API_URL = 'http://www.pubmedcentral.nih.gov/utils/idconv/v1.0/?format=json'
-  PUBMED_URL = 'http://www.ncbi.nlm.nih.gov/pubmed/?report=xml&format=text'
-  EUTILS_SEARCH = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&usehistory=n'
-  EUTILS_FETCH = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml'
+  PMC_API_URL = 'https://www.pubmedcentral.nih.gov/utils/idconv/v1.0/?format=json'
+  PUBMED_URL = 'https://www.ncbi.nlm.nih.gov/pubmed/?report=xml&format=text'
+  EUTILS_SEARCH = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&usehistory=n'
+  EUTILS_FETCH = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml'
   EUTILS_INTERVAL = 1.0/3.0
   EUTILS_TOOL = ['tool', 'mendeley-pmid-updater']
   EUTILS_EMAIL = ['email', 'theodore.r.pak@gmail.com']
